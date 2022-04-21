@@ -1,8 +1,9 @@
 #!/usr/bin/python
 from cgi import print_arguments
-import psycopg2
+# import psycopg2
 from bd.config import config
-from modules.validator import CheckEmail, CheckPhoneNumber, CheckDocument
+from modules.cliente import showClients
+from modules.presentacion import menuPedidos, menuPrincipal, menuClientes, menuCategorias, menuProductos, menuFacturas
 
 def connect():
     """ Connect a BD PostgreSQL """
@@ -125,16 +126,24 @@ def test():
     # print(CheckEmail("Test@"))
     print(CheckEmail(5.25))
     # print(CheckEmail("Test@gmail.net"))
+def habilitarMenu():
+    habilitado = True
+
+    while habilitado:
+        resultado = menuPrincipal()
+
+        if resultado == 1:
+            resProd = menuClientes()
+        if resultado == 2:
+            resCli = menuProductos()
+        if resultado == 3:
+            resCli = menuPedidos()
+        if resultado == 4:
+            resCli = menuFacturas()
+        if resultado == 5:
+            resCli = menuCategorias()
+        if resultado == 6:
+            habilitado = False
 
 if __name__ == '__main__':
-     choseMenu()
-    # connect()
-    # showClients()
-    # createClient()
-    # createClient("José", "Calle 2", "jose@gmai/*//com", "1234567", "1234567890")
-    # updateEmailClient("ottovera@gmail.com", 6)	
-    # test()
-    # deactivateClient(6)
-    # activateClient(6)
-    # showClients()
-    # deleteFactura(1)   
+    habilitarMenu()
